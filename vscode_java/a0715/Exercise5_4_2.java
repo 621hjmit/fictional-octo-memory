@@ -15,7 +15,7 @@ public class Exercise5_4_2 {
                 total += arr[i][j];
             }
         }
-        average = total / (arr.length * arr[1].length);
+        average = total / (float) (arr.length * arr[1].length);
         System.out.printf("total = %3d  ", total);
         System.out.printf("average = %4.2f\n", average);
     }
