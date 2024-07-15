@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+    <link rel="stylesheet" href="../../reset.css">
+    <script src="script.js" defer></script>
+    <style>
+        .displaynone {
+            display: none;
+        }
+    </style>
+    <script>
+        $.getJSON("http://api.openweathermap.org/data/2.5/weather?id=1897007&appid=111f4a5cce9cc4ae06422283ee4177e0&units=metric", function (data) {
+            //http://api.openweathermap.org/data/2.5/weather?id=1897007&appid=111f4a5cce9cc4ae06422283ee4177e0&units=metric  이게 현재 시간의 날씨임.
+            //var $cDate = new Date() 이건 자바스크립트로 뿌리는 현재 시간임.
+            //open weather에서 가져온 시간은 아님.
+            console.log(data);
+            let str =[]
+            let ctemp = data.main.temp;
+            let ctempmin = data.main.temp_min;
+            let ctempmax = data.main.temp_max;
+            let cdate = data.dt;
+            let cweathericon = data.weather[0].icon;
+            
+            str =[ctemp, ctempmin, ctempmax, cdate, cweathericon];
+
+
+            //$('.print').html(cweathericon);
+            $('.ctemp').append(ctemp);
+            $('.clowtemp').append(ctempmin);
+            $('.chightemp').append(ctempmax);
+            //$('.cicon').append('<img src="https://openweathermap.org/img/wn/'+cweathericon+'@2x.png">');
+            //백틱으로 작성해보자 + 처리없이.
+            $('.cicon').append(`<img src="https://openweathermap.org/img/wn/${cweathericon}@2x.png">`); 
+            //이건 새벽 세시 기준임.
+            // $.each(result, function (i, field) {
+            //     $("div").append(field + " ");
+            // });
+            cdate = new Date(cdate);
+            let str2 = cdate.getFullYear()+'-'+(cdate.getMonth()+1)+'-'+cdate.getDay()+' '+cdate.getHours()+':'+cdate.getMinutes(); //1970년 1월 몇일로 나옴... 그지같음. ㅎㅎ
+            
+            //var $cDate = new Date().toLocaleDateString();
+            var $cDate = new Date().toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+            $('h2').prepend( $cDate);
+            $('.cdate').append( $cDate);
+
+        });
+    </script>
+</head>
+
+<body>
+    <p class="displaynone">오늘 하는것은 get json으로 날씨 받아오는 것을 한다.</p>
+    <p class="displaynone">https://www.w3schools.com/jquery/ajax_getjson.asp</p>
+    <h1>open weather api</h1>
+    <h2> - 날씨예보</h2>
+    <div class="ctemp">현재온도 : </div>
+    <div class="clowtemp">최저온도 : </div>
+    <div class="chightemp">최고온도 : </div>
+    <div class="cicon">아이콘 : </div>
+    <div class="cdate">날짜 : </div>
+    <p class="print"></p>
+</body>
+
+</html>

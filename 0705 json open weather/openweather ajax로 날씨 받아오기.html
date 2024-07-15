@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+    <link rel="stylesheet" href="../../reset.css">
+    <style>
+        .displaynone {
+            display: none;
+        }
+    </style>
+    <script>
+        let str = '';
+        var apiURL = 'http://api.openweathermap.org/data/2.5/weather?id=1897007&appid=111f4a5cce9cc4ae06422283ee4177e0&units=metric';
+        $.ajax({
+            url: apiURL, 
+            dataType:'json',
+            type:'GET',
+            async:'false',
+            success: function (result) {
+                str += "현재온도 : "    +   result.main.temp                +"<br>";
+                str += "현재습도 : "    +   result.main.humidity            +"<br>";
+                str += "날씨 : "        +   result.weather[0].main          +"<br>";
+                str += "상세날씨설명 : "+   result.weather[0].description   +"<br>";
+                str += "날씨 이미지 : " +   result.weather[0].icon          +"<br>";
+                str += "바람 : "        +   result.wind.speed               +"<br>";
+                str += "나라 : "        +   result.sys.country              +"<br>";
+                str += "도시이름 : "    +   result.name                     +"<br>";
+                str += "구름 : "        +   result.clouds.all + '%'         +"<br>";
+
+                $("div").html(str);
+            }
+        });
+        // <i class="fas fa-cloud-sun"></i>
+    </script>
+</head>
+
+<body>
+    <!-- <h1>open weather api</h1>
+    <h2> - 날씨예보</h2>
+    <div class="ctemp">현재온도 : </div>
+    <div class="clowtemp">최저온도 : </div>
+    <div class="chightemp">최고온도 : </div>
+    <div class="cicon">아이콘 : </div>
+    <div class="cdate">날짜 : </div>
+    <p class="print"></p> -->
+    <div></div>
+</body>
+
+</html>
